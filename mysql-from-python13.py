@@ -11,7 +11,8 @@ connection = pymysql.connect(host='localhost', user=username, password='', db='C
 try:
     # Run a query
     with connection.cursor() as cursor:
-        cursor.execute("DELETE FROM FRIENDS WHERE name in ('jim','bob')")
+        names = ['jim', 'bob']
+        cursor.execute("DELETE FROM FRIENDS WHERE name in (%s,%s)", names)
         connection.commit()
 finally:
     # Close the connnection to sql
